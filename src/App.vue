@@ -1,21 +1,27 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <div class="app"><v-table :datas_array="DATAS" /></div>
 </template>
-
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import { mapActions, mapGetters } from "vuex";
+import VTable from "./components/v-table.vue";
 
 export default {
   name: "App",
-  components: {
-    HelloWorld,
+  components: { VTable },
+  data: () => {
+    return {};
+  },
+  computed: {
+    ...mapGetters(["DATAS"]),
+  },
+  methods: {
+    ...mapActions(["GET_DATAS_FROM_API"]),
+  },
+  mounted() {
+    this.GET_DATAS_FROM_API();
   },
 };
 </script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

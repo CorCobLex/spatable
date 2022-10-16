@@ -1,6 +1,25 @@
 <template>
   <div class="v-table">
-    <v-navbar />
+    <div class="dropdown">
+      <select @change="selectedType($event)">
+        <option value="name">Name</option>
+        <option value="count">Count</option>
+        <option value="distance">Distance</option>
+      </select>
+      <select name="optionsChoose" id="optionsChoose" :disabled="localIsNumber">
+        <option value="contains">{{ localIsNumber }}</option>
+        <option value="equal">Equal</option>
+        <option value="less">Less</option>
+        <option value="more">More</option>
+      </select>
+      <input
+        type="text"
+        id="inputData"
+        name="inputData"
+        required
+        minlenght="1"
+      />
+    </div>
     <div class="v-table__header">
       <p>Name</p>
       <p>Date</p>
@@ -26,15 +45,18 @@
 
 <script>
 import vTableRow from "./v-table-row.vue";
-import VNavbar from "./v-navbar.vue";
 export default {
   name: "v-table",
   components: {
     vTableRow,
-
-    VNavbar,
   },
   props: {
+    isNumber: {
+      type: Boolean,
+      default: () => {
+        return true;
+      },
+    },
     datas_array: {
       type: Array,
       default: () => {
@@ -42,8 +64,12 @@ export default {
       },
     },
   },
+  watch: {
+    selectedType() {},
+  },
   data() {
     return {
+      localIsNumber: this.isNumber,
       dataPerPage: 10,
       pageNumber: 1,
     };
@@ -61,6 +87,12 @@ export default {
   methods: {
     pageClick(page) {
       this.pageNumber = page;
+    },
+    selectedType(event) {
+      if (event.target.value == "name") {
+        console.log(event.target.value);
+        return (this.localIsNumber = false);
+      }
     },
   },
 };
@@ -100,5 +132,9 @@ export default {
   background: #ccc;
   cursor: pointer;
   color: white;
+}
+.dropdown {
+  display: flex;
+  justify-content: center;
 }
 </style>

@@ -1,25 +1,6 @@
 <template>
   <div class="v-table">
-    <div class="dropdown">
-      <select @change="selectedType($event)">
-        <option value="name">Name</option>
-        <option value="count">Count</option>
-        <option value="distance">Distance</option>
-      </select>
-      <select name="optionsChoose" id="optionsChoose" :disabled="localIsNumber">
-        <option value="contains">{{ localIsNumber }}</option>
-        <option value="equal">Equal</option>
-        <option value="less">Less</option>
-        <option value="more">More</option>
-      </select>
-      <input
-        type="text"
-        id="inputData"
-        name="inputData"
-        required
-        minlenght="1"
-      />
-    </div>
+    <v-filters />
     <div class="v-table__header">
       <p>Name</p>
       <p>Date</p>
@@ -29,7 +10,7 @@
     <div class="v-table__body">
       <v-table-row v-for="row in paginatedData" :key="row.id" :row_data="row" />
     </div>
-    <div class="v-table__paggination">
+    <div class="v-table__pagination">
       <div
         class="page"
         v-for="page in pages"
@@ -45,38 +26,36 @@
 
 <script>
 import vTableRow from "./v-table-row.vue";
+import VFilters from "./v-filters.vue";
 export default {
   name: "v-table",
   components: {
     vTableRow,
+    VFilters,
   },
   props: {
-    isNumber: {
-      type: Boolean,
-      default: () => {
-        return true;
-      },
-    },
     datas_array: {
       type: Array,
       default: () => {
         return [];
       },
     },
+    dataPerPage: {
+      type: Number,
+      default: () => {
+        return 10;
+      },
+    },
   },
-  watch: {
-    selectedType() {},
-  },
+
   data() {
     return {
-      localIsNumber: this.isNumber,
-      dataPerPage: 10,
       pageNumber: 1,
     };
   },
   computed: {
     pages() {
-      return Math.ceil(this.datas_array.length / 10);
+      return Math.ceil(this.datas_array.length / this.dataPerPage);
     },
     paginatedData() {
       let from = (this.pageNumber - 1) * this.dataPerPage;
@@ -87,12 +66,6 @@ export default {
   methods: {
     pageClick(page) {
       this.pageNumber = page;
-    },
-    selectedType(event) {
-      if (event.target.value == "name") {
-        console.log(event.target.value);
-        return (this.localIsNumber = false);
-      }
     },
   },
 };
@@ -111,7 +84,7 @@ export default {
   text-align: center;
   flex-basis: 25%;
 }
-.v-table__paggination {
+.v-table__pagination {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -132,9 +105,5 @@ export default {
   background: #ccc;
   cursor: pointer;
   color: white;
-}
-.dropdown {
-  display: flex;
-  justify-content: center;
 }
 </style>

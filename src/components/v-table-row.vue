@@ -1,10 +1,10 @@
 <template>
-  <div class="v-table-row">
-    <div class="row row_name">{{ row_data.name }}</div>
-    <div class="row row_date">{{ row_data.date }}</div>
-    <div class="row row_count">{{ row_data.count }}</div>
-    <div class="row row_distance">{{ row_data.distance }}</div>
-  </div>
+  <table class="v-table-row">
+    <td class="row">{{ row_data.name }}</td>
+    <td class="row">{{ row_data.date }}</td>
+    <td class="row">{{ row_data.count }}</td>
+    <td class="row">{{ row_data.distance }}</td>
+  </table>
 </template>
 
 <script>

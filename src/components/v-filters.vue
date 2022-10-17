@@ -28,7 +28,21 @@ export default {
       this.localIsNumber = event.target.value == "name";
     },
     selectedOption(event) {
-      console.log(event.target.value);
+      var value = event.target.value;
+      switch (value) {
+        case "less":
+          console.log(value);
+          break;
+        case "equal":
+          console.log(value);
+          break;
+        case "more":
+          console.log(value);
+          break;
+        default:
+          console.log(value);
+          break;
+      }
     },
   },
 };

@@ -1,15 +1,22 @@
 <template>
   <div class="v-table">
     <v-filters />
-    <div class="v-table__header">
-      <p>Name</p>
-      <p>Date</p>
-      <p>Count</p>
-      <p>Distance</p>
-    </div>
-    <div class="v-table__body">
-      <v-table-row v-for="row in paginatedData" :key="row.id" :row_data="row" />
-    </div>
+
+    <table class="v-table__header">
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Count</th>
+        <th>Distance</th>
+      </tr>
+      <div class="v-table__body">
+        <v-table-row
+          v-for="row in paginatedData"
+          :key="row.id"
+          :row_data="row"
+        />
+      </div>
+    </table>
     <div class="v-table__pagination">
       <div
         class="page"

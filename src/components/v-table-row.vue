@@ -1,10 +1,10 @@
 <template>
-  <table class="v-table-row">
+  <tr class="v-table-row">
     <td class="row">{{ row_data.name }}</td>
     <td class="row">{{ row_data.date }}</td>
     <td class="row">{{ row_data.count }}</td>
     <td class="row">{{ row_data.distance }}</td>
-  </table>
+  </tr>
 </template>
 
 <script>

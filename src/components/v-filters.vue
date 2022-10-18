@@ -1,55 +1,75 @@
 <template>
   <div class="dropdown">
-    <select @change="selectedType($event)">
+    <select v-model="localType" @change="selectedType()">
       <option value="name">Name</option>
       <option value="count">Count</option>
       <option value="distance">Distance</option>
     </select>
-    <select @change="selectedOption($event)" :disabled="localIsNumber">
+    <select v-model="selectOption" :disabled="localIsNumber">
       <option value="contains">Contains</option>
       <option value="equal">Equal</option>
       <option value="less">Less</option>
       <option value="more">More</option>
     </select>
-    <input type="text" id="inputData" name="inputData" required minlenght="1" />
+    <input
+      @change="searchFilter($event)"
+      type="text"
+      v-model="inputData"
+      required
+      minlenght="1"
+    />
+    <VTable class="vtable" :datas_array="filtration" />
   </div>
 </template>
 <script>
+import VTable from "./v-table.vue";
 export default {
   name: "v-filters",
   data() {
     return {
       localIsNumber: true,
+      localType: "",
+      inputData: "",
+      selectOption: "",
     };
   },
-
-  methods: {
-    selectedType(event) {
-      this.localIsNumber = event.target.value == "name";
+  props: {
+    datas_array: {
+      type: Array,
+      default: () => {
+        return [];
+      },
     },
-    selectedOption(event) {
-      var value = event.target.value;
-      switch (value) {
-        case "less":
-          console.log(value);
-          break;
-        case "equal":
-          console.log(value);
-          break;
-        case "more":
-          console.log(value);
-          break;
+  },
+  methods: {
+    selectedType() {
+      this.localIsNumber = this.localType == "name";
+    },
+  },
+  computed: {
+    filtration() {
+      console.log(this.localType);
+      switch (this.localType) {
+        case "count":
+          return this.datas_array.filter((data) => {
+            return data.count.match(this.inputData);
+          });
+        case "distance":
+          return this.datas_array.filter((data) => {
+            return data.distance.match(this.inputData);
+          });
         default:
-          console.log(value);
-          break;
+          return this.datas_array.filter((data) => {
+            return data.name.match(this.inputData);
+          });
       }
     },
   },
+  components: { VTable },
 };
 </script>
 <style>
 .dropdown {
-  display: flex;
-  justify-content: center;
+  text-align-last: center;
 }
 </style>

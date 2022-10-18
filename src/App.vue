@@ -1,13 +1,15 @@
 <template>
-  <div class="app"><v-table :datas_array="DATAS" /></div>
+  <div class="app">
+    <v-filters :datas_array="DATAS" />
+  </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import VTable from "./components/v-table.vue";
+import VFilters from "./components/v-filters.vue";
 
 export default {
   name: "App",
-  components: { VTable },
+  components: { VFilters },
   data: () => {
     return {};
   },

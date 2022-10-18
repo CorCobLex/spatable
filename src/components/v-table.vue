@@ -1,7 +1,5 @@
 <template>
   <div class="v-table">
-    <v-filters />
-
     <table class="v-table__header">
       <tr>
         <th>Name</th>
@@ -9,14 +7,13 @@
         <th>Count</th>
         <th>Distance</th>
       </tr>
-      <div class="v-table__body">
-        <v-table-row
-          v-for="row in paginatedData"
-          :key="row.id"
-          :row_data="row"
-        />
-      </div>
     </table>
+    <v-table-row
+      class="v-table__body"
+      v-for="row in paginatedData"
+      :key="row.id"
+      :row_data="row"
+    />
     <div class="v-table__pagination">
       <div
         class="page"
@@ -33,12 +30,10 @@
 
 <script>
 import vTableRow from "./v-table-row.vue";
-import VFilters from "./v-filters.vue";
 export default {
   name: "v-table",
   components: {
     vTableRow,
-    VFilters,
   },
   props: {
     datas_array: {
@@ -83,6 +78,7 @@ export default {
   margin: 0 auto;
 }
 .v-table__header {
+  border-spacing: 190px 0px;
   display: flex;
   justify-content: space-around;
   border-bottom: solid 1px #000;
